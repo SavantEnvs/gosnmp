@@ -1,0 +1,22 @@
+package gosnmp
+
+import (
+	"io"
+	"log"
+	"testing"
+)
+
+func FuzzUnmarshal(f *testing.F) {
+	for _, test := range testsUnmarshalErr {
+		f.Add(test.in())
+	}
+	for _, test := range testsUnmarshal {
+		f.Add(test.in())
+	}
+
+	vhandle := GoSNMP{}
+	vhandle.Logger = NewLogger(log.New(io.Discard, "", 0))
+	f.Fuzz(func(t *testing.T, data []byte) {
+		_, _ = vhandle.SnmpDecodePacket(data)
+	})
+}
