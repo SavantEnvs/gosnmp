@@ -1,0 +1,10 @@
+# seed-from: https://app.mayhem.security/savantenvs/gosnmp/fuzz_unmarshal
+project: savantenvs/gosnmp
+target: fuzz_unmarshal-mined-646a881
+cmds:
+  - cmd: /mayhem/fuzz_unmarshal
+    libfuzzer: true
+    dictionary: /mayhem/mayhem/snmp.dict
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/fuzz_unmarshal-mined-646a881/testsuite
